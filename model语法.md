@@ -64,3 +64,15 @@ class Passport(models.Model):
     passport_number = models.CharField(max_length=20)
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
 ```
+
+除了 CASCADE，还有其他选项可以作为 on_delete 的值，包括：
+
+models.PROTECT：防止删除关联对象，会引发 ProtectedError 异常。
+
+models.SET_NULL：将关联字段设置为 NULL（仅适用于可以为 NULL 的字段）。
+
+models.SET_DEFAULT：将关联字段设置为默认值。
+
+models.SET()：将关联字段设置为指定的值。
+
+models.DO_NOTHING：不执行任何操作，留待开发者手动处理。
