@@ -14,13 +14,15 @@
   ```bash
   cd myproject
   ```
-步骤 2: 创建 Django 应用
+
+## 步骤 2: 创建 Django 应用
 使用Django命令行工具创建一个新的Django应用：
 
   ```bash
   python manage.py startapp myapp
 ```
-步骤 3: 定义模型
+
+## 步骤 3: 定义模型
 在 myapp/models.py 中定义模型。例如，下面是一个帖子（Post）和评论（Comment）的模型示例：
 
   ```bash
@@ -56,7 +58,7 @@ class Comment(models.Model):
         return self.text
 ```
 
-步骤 4: 迁移数据库
+## 步骤 4: 迁移数据库
 创建模型迁移文件：
  
   ```bash
@@ -67,7 +69,7 @@ class Comment(models.Model):
   ```bash
   python manage.py migrate
   ```
-步骤 5: 创建视图
+## 步骤 5: 创建视图
 在 myapp/views.py 中创建视图函数。例如，以下是用于显示帖子列表和单个帖子详细信息的视图函数示例：
 
   ```bash
@@ -83,7 +85,7 @@ def post_detail(request, pk):
     return render(request, 'myapp/post_detail.html', {'post': post})
 ```
 
-步骤 6: 创建 URL 映射
+## 步骤 6: 创建 URL 映射
 在 myapp/urls.py 中创建 URL 映射以连接视图和网址。例如：
 
   ```bash
@@ -97,6 +99,43 @@ urlpatterns = [
 ```
 
 这些步骤总结了如何创建一个简单的博客应用，并在其中显示数据库中的数据。根据您的项目需求，您可以进一步定制视图、模板和样式。
+
+## 步骤 7: 创建 html
+创建一个HTML模板文件，存放在应用的templates/目录下。例如，创建一个名为post_list.html的模板，用于显示博客文章列表。示例模板：
+
+ ```bash
+<!DOCTYPE html>
+<html>
+<head>
+    <title>博客文章列表</title>
+</head>
+<body>
+    <h1>博客文章列表</h1>
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+```
+在这个示例中，模板使用Django模板语言（{% %}和{{ }}）来渲染博客文章列表。
+
+确保您的Django设置中已配置应用的模板目录。在项目的settings.py文件中，检查TEMPLATES设置，确保它包含了应用的模板目录。示例设置：
+
+  ```bash
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'myapp', 'templates')],
+        'APP_DIRS': True,
+        # ...
+    },
+]
+  ```
+请确保将'myapp'替换为您的应用名称。
+
 
 安装和运行
 为了安装所需的依赖项，请运行以下命令：
