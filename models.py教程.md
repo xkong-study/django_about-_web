@@ -80,3 +80,55 @@ models.DO_NOTHING：不执行任何操作，留待开发者手动处理。
 如图所示：  
 [![2024-01-03-11-39-53](https://i.ibb.co/474vHqt/2024-01-03-11-39-53.png)](https://ibb.co/mGhZ3jT)
 
+# Django的数据库查询语法
+1. get()：获取满足指定条件的单个对象。
+```bash
+post = Post.objects.get(id=1)
+```
+2. filter()：根据指定条件筛选多个对象。
+```bash
+posts = Post.objects.filter(published_date__isnull=False)
+```
+3. exclude()：排除满足指定条件的对象。
+```bash
+posts = Post.objects.exclude(author__username='admin')
+```
+4. all()：获取模型的所有对象。
+```bash
+posts = Post.objects.all()
+```
+5. count()：计算满足条件的对象数量。
+```bash
+count = Post.objects.filter(published_date__isnull=False).count()
+```
+6. order_by()：按指定字段对对象进行排序。
+```bash
+posts = Post.objects.order_by('-published_date')
+```
+7. distinct()：获取去重后的对象集合。
+```bash
+authors = Post.objects.values_list('author', flat=True).distinct()
+```
+8. annotate()：用于添加聚合计算结果到查询中。
+```bash
+from django.db.models import Count
+authors_with_count = Author.objects.annotate(num_posts=Count('post'))
+```
+9. values() 和 values_list()：用于选择特定字段的值。
+```bash
+titles = Post.objects.values_list('title', flat=True)
+```
+10. 链式查询：可以将多个查询方法链接在一起，以构建更复杂的查询。
+```bash
+recent_posts = Post.objects.filter(published_date__isnull=False).order_by('-published_date')[:5]
+```
+11. 复杂查询：Django支持使用Q对象和复杂查询表达式进行复杂的查询操作。
+```bash
+from django.db.models import Q
+posts = Post.objects.filter(Q(title__icontains='Django') | Q(body__icontains='Django'))
+```
+12. 聚合函数：Django支持各种聚合函数，如Sum、Avg、Min和Max等，用于计算统计信息。
+```bash
+from django.db.models import Sum
+total_likes = Post.objects.aggregate(total_likes=Sum('likes'))
+```
