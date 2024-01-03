@@ -76,3 +76,7 @@ models.SET_DEFAULT：将关联字段设置为默认值。
 models.SET()：将关联字段设置为指定的值。
 
 models.DO_NOTHING：不执行任何操作，留待开发者手动处理。
+
+如图所示：  
+[![2024-01-03-11-39-53](https://i.ibb.co/474vHqt/2024-01-03-11-39-53.png)](https://ibb.co/mGhZ3jT)
+
